@@ -21,8 +21,7 @@ public class Building {
     public Building() {
     }
 
-    public Building(Long id,String name,List<Room> lOfRooms) {
-        this.id = id;
+    public Building(String name,List<Room> lOfRooms) {
         this.name = name;
         this.lOfRooms = lOfRooms;
     }

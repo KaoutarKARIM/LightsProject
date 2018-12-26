@@ -28,6 +28,10 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-data-jpa')
 	implementation('org.springframework.boot:spring-boot-starter-web')
 	compile('com.h2database:h2')
+	compile ('org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.0')
 	runtimeOnly('org.springframework.boot:spring-boot-devtools')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
+
+
+//compile "org.springframework.integration:spring-integration-mqtt:5.1.1.RELEASE"

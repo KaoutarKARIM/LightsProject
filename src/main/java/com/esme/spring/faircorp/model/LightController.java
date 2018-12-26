@@ -35,7 +35,7 @@ public class LightController {
 
     @GetMapping(path = "/{id}")
     public LightDto findById(@PathVariable Long id) {
-        return lightDao.findById(id).map(light -> new LightDto(light)).orElse(null);
+        return lightDao.findById(id).map(LightDto::new).orElse(null);
     }
 
     @PutMapping(path = "/{id}/switch")

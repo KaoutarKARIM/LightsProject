@@ -27,8 +27,7 @@ public class Room {
     public Room() {
     }
 
-    public Room(Long id,String name,Integer floor,List<Light> lOfLights,Building building) {
-        this.id = id;
+    public Room(String name,Integer floor,List<Light> lOfLights,Building building) {
         this.name = name;
         this.floor = floor;
         this.lOfLights = lOfLights;
