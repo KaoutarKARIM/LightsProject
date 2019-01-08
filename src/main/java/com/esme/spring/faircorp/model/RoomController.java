@@ -1,5 +1,6 @@
 package com.esme.spring.faircorp.model;
 
+import com.esme.spring.faircorp.MqttClient.MqttPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import javax.transaction.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,9 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/rooms")
 @Transactional
 public class RoomController {
+
+    @Autowired
+    private MqttPublisher mqttpub;
 
     @Autowired
     private final RoomDao roomDao;
@@ -75,6 +79,9 @@ public class RoomController {
         Room room = roomDao.findById(room_id).orElseThrow(IllegalArgumentException::new);
         for (Light l : room.getlOfLights()){
             l.setStatus(l.getStatus() == Status.ON ? Status.OFF: Status.ON);
+            String topic = "ONOFF" ;
+            String mssg = l.getStatus() == Status.ON ? "ON" : "OFF" + "/" + l.getId();
+            mqttpub.publish(topic,mssg);
         }
         return new RoomDto(room);
     }

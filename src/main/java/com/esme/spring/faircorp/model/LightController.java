@@ -1,5 +1,6 @@
 package com.esme.spring.faircorp.model;
 
+import com.esme.spring.faircorp.MqttClient.MqttPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
 import javax.transaction.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,9 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/lights")
 @Transactional
 public class LightController {
+
+    @Autowired
+    private MqttPublisher mqttpub;
 
     @Autowired
     private final LightDao lightDao;
@@ -42,6 +46,9 @@ public class LightController {
     public LightDto switchStatus(@PathVariable Long id) {
         Light light = lightDao.findById(id).orElseThrow(IllegalArgumentException::new);
         light.setStatus(light.getStatus() == Status.ON ? Status.OFF: Status.ON);
+        String topic = "ONOFF" ;
+        String mssg = light.getStatus() == Status.ON ? "ON" : "OFF" + "/" + id;
+        mqttpub.publish(topic,mssg);
         return new LightDto(light);
     }
 
