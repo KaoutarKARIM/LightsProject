@@ -79,10 +79,10 @@ public class RoomController {
         Room room = roomDao.findById(room_id).orElseThrow(IllegalArgumentException::new);
         for (Light l : room.getlOfLights()){
             l.setStatus(l.getStatus() == Status.ON ? Status.OFF: Status.ON);
-            String topic = "ONOFF" ;
+            //String topic = "ONOFF" ;
             //String mssg = l.getStatus() == Status.ON ? "ON" : "OFF" + "/" + l.getId();
-            String mssg = String.format("%s/%s",l.getStatus(),l.getId());
-            mqttpub.publish(topic,mssg);
+            //String mssg = String.format("%s/%s",l.getStatus(),l.getId());
+            //mqttpub.publish(topic,mssg);
         }
         return new RoomDto(room);
     }
