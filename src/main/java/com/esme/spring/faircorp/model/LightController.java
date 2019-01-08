@@ -47,7 +47,8 @@ public class LightController {
         Light light = lightDao.findById(id).orElseThrow(IllegalArgumentException::new);
         light.setStatus(light.getStatus() == Status.ON ? Status.OFF: Status.ON);
         String topic = "ONOFF" ;
-        String mssg = light.getStatus() == Status.ON ? "ON" : "OFF" + "/" + light.getId();
+        //String mssg = light.getStatus() == Status.ON ? "ON" : "OFF" + "/" + light.getId();
+        String mssg = String.format("%s/%s",light.getStatus(),light.getId());
         mqttpub.publish(topic,mssg);
         return new LightDto(light);
     }

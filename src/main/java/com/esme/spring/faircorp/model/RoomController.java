@@ -78,12 +78,11 @@ public class RoomController {
     public RoomDto switchLight(@PathVariable Long room_id) {
         Room room = roomDao.findById(room_id).orElseThrow(IllegalArgumentException::new);
         for (Light l : room.getlOfLights()){
-            String mssg = l.getStatus() == Status.ON ? "ON" : "OFF";
             l.setStatus(l.getStatus() == Status.ON ? Status.OFF: Status.ON);
             String topic = "ONOFF" ;
-
-            String mssgsend = mssg + "/" + l.getId().toString();
-            mqttpub.publish(topic,mssgsend);
+            //String mssg = l.getStatus() == Status.ON ? "ON" : "OFF" + "/" + l.getId();
+            String mssg = String.format("%s/%s",l.getStatus(),l.getId());
+            mqttpub.publish(topic,mssg);
         }
         return new RoomDto(room);
     }
