@@ -42,11 +42,11 @@ public class MqttPublisher {
         }
 
     }
-
+/*
     public static void main(String[] args) {
         publish("topic","from java part");
 
-    }
+    }*/
 
 
 }

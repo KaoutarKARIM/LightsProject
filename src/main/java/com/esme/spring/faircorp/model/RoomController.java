@@ -80,8 +80,9 @@ public class RoomController {
         for (Light l : room.getlOfLights()){
             l.setStatus(l.getStatus() == Status.ON ? Status.OFF: Status.ON);
             String topic = "ONOFF" ;
-            String mssg = l.getStatus() == Status.ON ? "ON" : "OFF" + "/" + l.getId();
-            mqttpub.publish(topic,mssg);
+            String mssg = l.getStatus() == Status.ON ? "ON" : "OFF";
+            String mssgsend = mssg + "/" + l.getId(); 
+            mqttpub.publish(topic,mssgsend);
         }
         return new RoomDto(room);
     }
